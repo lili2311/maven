@@ -46,26 +46,6 @@ node(jenkinsEnv.nodeSelection(osNode)) {
            }
         }
 
-        stage('Build / Unit Test') {
-            String jdkName = jenkinsEnv.jdkFromVersion(buildOs, buildJdk)
-            String mvnName = jenkinsEnv.mvnFromVersion(buildOs, buildMvn)
-            withMaven(jdk: jdkName, maven: mvnName, mavenLocalRepo:"${WORK_DIR}/.repository", options:[
-                artifactsPublisher(disabled: false),
-                junitPublisher(ignoreAttachments: false),
-                findbugsPublisher(disabled: false),
-                openTasksPublisher(disabled: false),
-                dependenciesFingerprintPublisher(),
-                invokerPublisher(),
-                pipelineGraphPublisher()
-            ]) {
-                sh "mvn clean ${MAVEN_GOAL} -B -U -e -fae -V -Dmaven.test.failure.ignore=true"
-            }
-            dir ('apache-maven/target') {
-                sh "mv apache-maven-*-bin.zip apache-maven-dist.zip"
-                stash includes: 'apache-maven-dist.zip', name: 'dist'
-            }
-        }
-
         tests = resolveScm source: [$class: 'GitSCMSource', credentialsId: '', id: '_', remote: 'https://gitbox.apache.org/repos/asf/maven.git', traits: [[$class: 'jenkins.plugins.git.traits.BranchDiscoveryTrait'], [$class: 'GitToolSCMSourceTrait', gitTool: 'Default']]], targets: [BRANCH_NAME, 'master']
     }
 }
