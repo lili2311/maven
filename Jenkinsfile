@@ -61,7 +61,7 @@ for (String os in runITsOses) {
         def cmd = [
           'mvn', 'clean',
           'verify',
-          '-DskipTests', '-Drat.skip', "-DstageId=${os}-jdk${jdk}"
+          '-DskipTests', '-Drat.skip', "-DbuildId=${os}-jdk${jdk}"
         ]
         if (jdk == '7') {
           // Java 7u80 has TLS 1.2 disabled by default: need to explicitely enable
