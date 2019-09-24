@@ -26,29 +26,8 @@ def runITsOses = ['linux', 'windows']
 def runITsJdks = ['7', '8', '11','12']
 def runITsMvn = '3.6.0'
 def runITscommand = "mvn clean install -Prun-its,embedded -B -U -V" // -DmavenDistro=... -Dmaven.test.failure.ignore=true
-def tests
 
 try {
-
-def osNode = jenkinsEnv.labelForOS(buildOs) 
-node(jenkinsEnv.nodeSelection(osNode)) {
-    dir('build') {
-        stage('Checkout') {
-            checkout scm
-        }
-
-        def WORK_DIR=pwd()
-        def MAVEN_GOAL='verify'
-
-        stage('Configure deploy') {
-           if (env.BRANCH_NAME == 'master'){
-               MAVEN_GOAL='deploy'
-           }
-        }
-
-        tests = resolveScm source: [$class: 'GitSCMSource', credentialsId: '', id: '_', remote: 'https://gitbox.apache.org/repos/asf/maven.git', traits: [[$class: 'jenkins.plugins.git.traits.BranchDiscoveryTrait'], [$class: 'GitToolSCMSourceTrait', gitTool: 'Default']]], targets: [BRANCH_NAME, 'master']
-    }
-}
 
 Map runITsTasks = [:]
 for (String os in runITsOses) {
@@ -75,7 +54,7 @@ for (String os in runITsOses) {
                 def WORK_DIR=pwd()
                 stage("${stageLabel}") {
                     echo "NODE_NAME = ${env.NODE_NAME}"
-                    checkout tests
+                    checkout scm
                     withMaven(jdk: jdkName, maven: mvnName, mavenLocalRepo:"${WORK_DIR}/.repository", options:[
                         artifactsPublisher(disabled: false),
                         junitPublisher(ignoreAttachments: false),
@@ -89,8 +68,7 @@ for (String os in runITsOses) {
                         String commitId = sh(returnStdout: true, script: 'git rev-parse HEAD')
                         sh cmd.join(' ') + "-${commitId}"
                       } else {
-                        String commitId = bat(returnStdout: true, script: 'git rev-parse HEAD')
-                        bat cmd.join(' ') + "-${commitId}"
+                        bat cmd.join(' ')
                       }
                     }
                 }
