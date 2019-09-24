@@ -40,12 +40,13 @@ for (String os in runITsOses) {
         def cmd = [
           'mvn', 'clean',
           'verify',
-          '-DskipTests', '-Drat.skip', "-DbuildId=${os}-jdk${jdk}"
+          '-DskipTests', '-Drat.skip'
         ]
         if (jdk == '7') {
           // Java 7u80 has TLS 1.2 disabled by default: need to explicitely enable
           cmd += '-Dhttps.protocols=TLSv1.2'
         }
+        cmd += "-DbuildId=${os}-jdk${jdk}"
 
         String stageId = "${os}-jdk${jdk}"
         String stageLabel = "${os.capitalize()} Java ${jdk}"
