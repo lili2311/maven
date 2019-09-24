@@ -86,9 +86,11 @@ for (String os in runITsOses) {
                         pipelineGraphPublisher()
                     ]) {
                       if (isUnix()) {
-                        sh cmd.join(' ')
+                        String commitId = sh(returnStdout: true, script: 'git rev-parse HEAD')
+                        sh cmd.join(' ') + "-${commitId}"
                       } else {
-                        bat cmd.join(' ')
+                        String commitId = bat(returnStdout: true, script: 'git rev-parse HEAD')
+                        bat cmd.join(' ') + "-${commitId}"
                       }
                     }
                 }
