@@ -48,7 +48,7 @@ for (String os in runITsOses) {
         }
 
         String stageId = "${os}-jdk${jdk}"
-        String stageLabel = "Rebuild ${os.capitalize()} Java ${jdk}"
+        String stageLabel = "${os.capitalize()} Java ${jdk}"
         runITsTasks[stageId] = {
             node(jenkinsEnv.nodeSelection(osLabel)) {
                 def WORK_DIR=pwd()
@@ -68,7 +68,8 @@ for (String os in runITsOses) {
                         String commitId = sh(returnStdout: true, script: 'git rev-parse HEAD')
                         sh cmd.join(' ') + "-${commitId}"
                       } else {
-                        bat cmd.join(' ')
+                        String commitId = bat(returnStdout: true, script: 'git rev-parse HEAD').tokenize(' ')[-1]
+                        bat cmd.join(' ') + "-${commitId}"
                       }
                     }
                 }
