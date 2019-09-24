@@ -184,6 +184,7 @@ under the License.
             <configuration>
               <descriptors>
                 <descriptor>src/main/assembly/bin.xml</descriptor>
+                <descriptor>src/main/assembly/src.xml</descriptor>
               </descriptors>
             </configuration>
           </execution>
@@ -211,6 +212,8 @@ under the License.
               <includes>
                 <include>${project.artifactId}-${project.version}-bin-${buildId}.zip</include>
                 <include>${project.artifactId}-${project.version}-bin-${buildId}.tar.gz</include>
+                <include>${project.artifactId}-${project.version}-src-${buildId}.zip</include>
+                <include>${project.artifactId}-${project.version}-src-${buildId}.tar.gz</include>
               </includes>
             </fileSet>
           </fileSets>
