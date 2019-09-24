@@ -61,7 +61,7 @@ for (String os in runITsOses) {
         def cmd = [
           'mvn', 'clean',
           'verify',
-          '-DskipTests', '-Drat.skip'
+          '-DskipTests', '-Drat.skip', "-DbuildId=${os}-jdk${jdk}"
         ]
         if (jdk == '7') {
           // Java 7u80 has TLS 1.2 disabled by default: need to explicitely enable
@@ -85,13 +85,6 @@ for (String os in runITsOses) {
                         invokerPublisher(),
                         pipelineGraphPublisher()
                     ]) {
-                      commitId = ''
-                      if (isUnix()) {
-                        commitId = sh(returnStdout: true, script: 'git rev-parse HEAD')
-                      } else {
-                        commitId = bat(returnStdout: true, script: 'git rev-parse HEAD')
-                      }
-                      cmd += "-DbuildId=${os}-jdk${jdk}-${commitId}"
                       if (isUnix()) {
                         sh cmd.join(' ')
                       } else {
