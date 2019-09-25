@@ -69,7 +69,7 @@ for (String os in runITsOses) {
                         String commitId = sh(returnStdout: true, script: 'git rev-parse HEAD')
                         sh cmd.join(' ') + "-${commitId}"
                       } else {
-                        String commitId = bat(returnStdout: true, script: 'git rev-parse HEAD').tokenize(' ')[-1]
+                        String commitId = bat(returnStdout: true, script: 'git rev-parse HEAD').tokenize(' ')[-1].trim()
                         echo "commitId = ${commitId}"
                         echo "command = " + cmd.join(' ') + "-${commitId}"
                         bat cmd.join(' ') + "-${commitId}"
