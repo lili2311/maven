@@ -40,7 +40,7 @@ under the License.
         <exclude>**/.settings/**</exclude>
         <exclude>**/*.iml</exclude>
         <exclude>**/*.ipr</exclude>
-        <exclude>**/.idea</exclude>
+        <exclude>**/.idea/**</exclude>
         <exclude>**/.DS_Store</exclude>
         <exclude>**/build/**</exclude>
       </excludes>
