@@ -35,6 +35,13 @@ under the License.
         <exclude>**/.gitattributes</exclude>
         <exclude>init-git-svn.sh</exclude>
         <exclude>**/.repository/**</exclude>
+        <exclude>**/.classpath</exclude>
+        <exclude>**/.project</exclude>
+        <exclude>**/.settings/**</exclude>
+        <exclude>**/*.iml</exclude>
+        <exclude>**/*.ipr</exclude>
+        <exclude>**/.idea</exclude>
+        <exclude>**/.DS_Store</exclude>
       </excludes>
     </fileSet>
     <fileSet>
