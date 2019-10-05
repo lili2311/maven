@@ -76,7 +76,7 @@ under the License.
     <maven.site.path>ref/3-LATEST</maven.site.path>
     <checkstyle.violation.ignore>None</checkstyle.violation.ignore>
     <checkstyle.excludes>**/package-info.java</checkstyle.excludes>
-    <source-date-epoch>1569085893</source-date-epoch>
+    <project.build.outputTimestamp>2019-09-21T16:17:18Z</project.build.outputTimestamp>
     <buildId>${os.name}-jdk${java.version}</buildId>
   </properties>
 
