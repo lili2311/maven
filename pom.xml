@@ -308,7 +308,7 @@ under the License.
       <dependency>
         <groupId>ch.qos.logback</groupId>
         <artifactId>logback-classic</artifactId>
-        <version>1.2.1</version>
+        <version>1.4.12</version>
         <optional>true</optional>
       </dependency>
       <!--  Wagon -->
@@ -560,7 +560,7 @@ under the License.
                     </goals>
                   </pluginExecutionFilter>
                   <action>
-                    <ignore />
+                    <ignore/>
                   </action>
                 </pluginExecution>
               </pluginExecutions>
